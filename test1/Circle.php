@@ -27,7 +27,7 @@ class Circle
         if ($radius > 0) {
             $this -> radius = $radius;
         } else {
-            throw new InvalidArgumentException('Данные не прошли проверку');
+            throw new InvalidArgumentException('Неверное значение радиуса - радиус меньше либо равен нулю');
         }
     }
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 /**
  * Class Square - описание квадратов
+ *
+ * Входной параметр - сторона квадрата
  */
 class Square
 {
@@ -19,7 +21,7 @@ class Square
         if($side > 0) {
             $this->side = $side;
         } else {
-            throw new InvalidArgumentException('Данные не прошли проверку');
+            throw new InvalidArgumentException('Неверное начение стороны квадрата - меньше либо равно нулю');
         }
 
     }

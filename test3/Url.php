@@ -39,7 +39,7 @@ class Url implements UrlInterface
             parse_str($parsedUrl['query'], $queryValues);
             $this -> query = $queryValues;
         } else {
-            throw new InvalidArgumentException('Данные не прошли проверку');
+            throw new InvalidArgumentException('Неверное значение URL');
         }
 
     }
