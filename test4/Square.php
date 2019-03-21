@@ -1,19 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * Class Square - описание квадратов
+ */
 class Square
 {
     private $side;
 
-    public function __construct($side)
+    /**
+     * Square constructor.
+     *
+     * @param float $side
+     */
+    public function __construct(float $side)
     {
-        $this->side = $side;
+        if($side > 0) {
+            $this->side = $side;
+        } else {
+            throw new InvalidArgumentException('Данные не прошли проверку');
+        }
+
     }
 
-    public function getSide()
+    /**
+     * Возврат значение стороны квадрата
+     *
+     * @return float
+     */
+    public function getSide():float
     {
         return $this->side;
     }
 }
-
-$square = new Square(10);
-$square->getSide(); // 10

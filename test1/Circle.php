@@ -1,25 +1,61 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * class Circle - вычисление площади и длинны неизменяемой окружности
+ * Включает в себя два метода соответственно
+ *
+ * Формула площади окружности: πr2
+ * Формула длинны окружности: 2*πR
+ */
 class Circle
 {
-    private $R;
+    private $radius;
+    private $area;
+    private $circumference;
 
-    function __construct($R)
+    /**
+     * Circle constructor.
+     *
+     * @param float $radius
+     *
+     * @throws Exception
+     */
+    function __construct(float $radius)
     {
-        $this->R = $R;
+        if ($radius > 0) {
+            $this -> radius = $radius;
+        } else {
+            throw new InvalidArgumentException('Данные не прошли проверку');
+        }
     }
 
-    public function getArea()
+    /**
+     * Рассчёт площади окружности
+     *
+     * @return float
+     */
+    public function getArea():float
     {
-        return (M_PI * $this->R * $this->R);
+        if(!isset($this -> area)) {
+            $this -> area = M_PI * $this -> radius * $this -> radius;
+        }
+
+        return $this -> area;
     }
 
-    public function getCircumference()
+    /**
+     * Рассчёт длинны окружности
+     *
+     * @return float
+     */
+    public function getCircumference():float
     {
-        return (2 * M_PI * $this->R);
+        if(!isset($this -> circumference)) {
+            $this -> circumference = 2 * M_PI * $this -> radius;
+        }
+
+        return $this -> circumference;
     }
 }
-
-$circle = new Circle(10);
-$circle->getArea();
-$circle->getCircumference();

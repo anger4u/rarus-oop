@@ -1,37 +1,88 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/UrlInterface.php';
+
+/**
+ * class Url - извлечение частей из HTTP адреса
+ */
 
 class Url implements UrlInterface
 {
-    private $url;
+    private $scheme;
+    private $host;
+    private $query;
 
-    public function __construct($url)
+    /**
+     * Получение и разбор URL адреса на составляющие с присвоением переменных
+     */
+    public function __construct(string $url)
     {
-        $this->url = $url;
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            $parsedUrl = parse_url($url);
+
+            /**
+             * Получение scheme
+             */
+            $this -> scheme = $parsedUrl['scheme'];
+
+            /**
+             * Получение хоста
+             */
+            $this -> host = $parsedUrl['host'];
+
+            /**
+             * Получение значений
+             */
+            $queryValues = [];
+            parse_str($parsedUrl['query'], $queryValues);
+            $this -> query = $queryValues;
+        } else {
+            throw new InvalidArgumentException('Данные не прошли проверку');
+        }
+
     }
 
-    public function getScheme()
+    /**
+     * Возврат scheme
+     *
+     * @return string
+     */
+    public function getScheme():string
     {
-        return parse_url($this->url)['scheme'];
+        return $this -> scheme;
     }
 
-    public function getHost()
+    /**
+     * Возврат хоста
+     *
+     * @return string
+     */
+    public function getHost():string
     {
-        return parse_url($this->url)['host'];
+        return $this -> host;
     }
 
-    public function getQueryParams()
+    /**
+     * Возврат значений
+     *
+     * @return array
+     */
+    public function getQueryParams():array
     {
-        $query = parse_url($this->url);
-        $result = [];
-
-        parse_str($query['query'], $result);
-
-        return $result;
+        return $this -> query;
     }
 
-    public function getQueryParam($key, $defaultValue = null)
+    /**
+     * Получение и возврат значения по ключу
+     *
+     * @param      $key
+     * @param null $defaultValue
+     *
+     * @return string|null
+     */
+    public function getQueryParam($key, $defaultValue = null):?string
     {
         $params = $this->getQueryParams();
 
@@ -41,16 +92,3 @@ class Url implements UrlInterface
         return $defaultValue;
     }
 }
-
-$url = new Url('http://yandex.ru?key=value&key2=value2');
-$url->getScheme(); // http
-$url->getHost(); // yandex.ru
-$url->getQueryParams();
-// [
-//     'key' => 'value',
-//     'key2' => 'value2'
-// ];
-$url->getQueryParam('key'); // value
-// второй параметр - значение по умолчанию
-$url->getQueryParam('key2', 'lala'); // value2
-$url->getQueryParam('new', 'ehu'); // ehu

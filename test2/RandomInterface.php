@@ -1,8 +1,28 @@
 <?php
 
+/**
+ * Interface RandomInterface
+ */
 interface RandomInterface
 {
-    public function __construct($seed);
-    public function getNext();
-    public function reset();
+    /**
+     * RandomInterface constructor.
+     *
+     * @param int $seed
+     */
+    public function __construct(int $seed);
+
+    /**
+     * Возврат нового случайного числа
+     *
+     * @return int
+     */
+    public function getNext():int;
+
+    /**
+     * Сброс генератора на начальное значение
+     *
+     * @return void
+     */
+    public function reset():void;
 }

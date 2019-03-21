@@ -1,7 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/RandomInterface.php';
 
+/**
+ * class Random - генератор рандомных чисел
+ *
+ * В основе генератора использован Линейный конгруэнтный метод
+ */
 class Random implements RandomInterface
 {
     private $seed;
@@ -10,33 +17,34 @@ class Random implements RandomInterface
     const b = 8;
     const c = 16;
 
-    public function __construct($seed)
+    /**
+     * Random constructor.
+     *
+     * @param int $seed - начальное число генератора псевдослучайных чисел
+     */
+    public function __construct(int $seed)
     {
         $this->nextNum = $this->seed = $seed;
     }
 
-    public function getNext()
+    /**
+     * Возврат нового случайного числа
+     *
+     * @return int
+     */
+    public function getNext():int
     {
         $this->nextNum = (self::a * $this->nextNum + self::b) % self::c;
         return $this->nextNum;
     }
 
-    public function reset()
+    /**
+     * Сброс генератора на начальное значение
+     *
+     * @return void
+     */
+    public function reset():void
     {
         $this->nextNum = $this->seed;
     }
 }
-
-$seq = new Random(100);
-$result1 = $seq->getNext();
-$result2 = $seq->getNext();
-
-$result1 != $result2; // => true
-
-$seq->reset();
-
-$result21 = $seq->getNext();
-$result22 = $seq->getNext();
-
-$result1 = $result21; // => true
-$result2 = $result22; // => true

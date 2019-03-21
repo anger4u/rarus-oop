@@ -1,10 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/Square.php';
 
+/**
+ * Class SquaresGenerator
+ *
+ * Класс реализован со статическим методом generate, принимающим два параметра: сторону и количество экземпляров
+ * квадрата, которые нужно создать. Функция возвращает массив из квадратов
+ */
 class SquaresGenerator
 {
-    public static function generate($side, $number)
+    public static function generate(float $side, int $number):array
     {
         $result = [];
 
@@ -17,6 +25,3 @@ class SquaresGenerator
         return $result;
     }
 }
-
-$squares = SquaresGenerator::generate(3, 2);
-// [new Square(3), new Square(3)];
