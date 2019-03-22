@@ -16,10 +16,12 @@ class SquaresGenerator
     {
         $result = [];
 
-        if ($number) {
+        if ($number > 0) {
             for ($i = 0; $i < $number; $i++) {
                 $result[] = new Square($side);
             }
+        } else {
+            throw new InvalidArgumentException('Неверное значение стороны - меньше либо равно нулю');
         }
 
         return $result;

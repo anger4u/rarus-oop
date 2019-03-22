@@ -6,11 +6,6 @@
 interface UrlInterface
 {
     /**
-     * Получение и разбор URL адреса на составляющие с присвоением переменных
-     */
-    public function __construct(string $url);
-
-    /**
      * Возврат scheme
      *
      * @return string

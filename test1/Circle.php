@@ -38,7 +38,7 @@ class Circle
      */
     public function getArea():float
     {
-        if(!isset($this -> area)) {
+        if(!empty($this -> area)) {
             $this -> area = M_PI * $this -> radius * $this -> radius;
         }
 
@@ -52,7 +52,7 @@ class Circle
      */
     public function getCircumference():float
     {
-        if(!isset($this -> circumference)) {
+        if(!empty($this -> circumference)) {
             $this -> circumference = 2 * M_PI * $this -> radius;
         }
 

@@ -6,13 +6,6 @@
 interface RandomInterface
 {
     /**
-     * RandomInterface constructor.
-     *
-     * @param int $seed
-     */
-    public function __construct(int $seed);
-
-    /**
      * Возврат нового случайного числа
      *
      * @return int
